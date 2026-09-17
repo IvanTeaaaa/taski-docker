@@ -14,6 +14,7 @@ services:
   db:
     # Из какого образа запустить контейнер:
     image: postgres:13.10
+    restart: always
     # Файл (или список файлов) с переменными окружения
     env_file: .env
     # Какой volume подключить для этого контейнера
@@ -23,6 +24,7 @@ services:
   backend:
     # Из какого Dockerfile собирать образ для этого контейнера:
     build: ./backend/
+    restart: always
     env_file: .env
     # Тут подключаем volume к backend
     volumes:
@@ -42,6 +44,7 @@ services:
     # Сбилдить и запустить образ, 
     # описанный в Dockerfile в папке gateway
     build: ./gateway/
+    restart: always
     env_file: .env
     # А тут подключаем volume со статикой к gateway
     volumes:
@@ -51,4 +54,3 @@ services:
     # на порт 80 контейнера
     ports:
       - 8000:80
-    restart: unless-stopped
